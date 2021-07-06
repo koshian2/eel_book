@@ -1,0 +1,23 @@
+<html>
+    <head>
+        <script type="text/javascript" src="/eel.js"></script>
+        <script src="https://unpkg.com/vue@3.1.4/dist/vue.global.js"></script>
+    </head>
+    <body>
+        <div id="app">
+            <input type="button" value="Click Me" v-on:click="buttonOnClicked">
+            <div id="current-time">
+                {{vm.currentTime}}
+            </div>
+            <div id="daily-progtext">
+                今日は{{vm.dailyProgress}}%経過しました
+            </div>
+            <progress id="daily-progbar" max="100" v-bind:value="vm.dailyProgress"></progress>
+            <div id="yearly-progtext">
+                今年は{{vm.yearlyProgress}}%経過しました
+            </div>
+            <progress id="yearly-progbar" max="100" v-bind:value="vm.yearlyProgress"></progress>
+        </div>
+        <script type="text/javascript" src="/app.js"></script>
+    </body>
+</html>

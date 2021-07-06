@@ -1,0 +1,20 @@
+<html>
+    <head>
+        <script type="text/javascript" src="/eel.js"></script>
+        <script src="https://unpkg.com/vue@3.1.4/dist/vue.global.js"></script>
+        <!-- BootstrapのCSS-->
+        <link rel="stylesheet" type="text/css" href="./honoka/css/bootstrap.css">
+    </head>
+    <body>
+        <div id="app">
+            <button v-on:click="startLoading">クリックすると小説を読み込みます</button>
+            <div class="bs-component" v-for="novel in posts">
+                <h2>{{novel.Title}}</h2>
+                <p v-for="line in novel.Text">
+                    {{line}}
+                </p>
+            </div>
+        </div>
+        <script type="text/javascript" src="/app.js"></script>
+    </body>
+</html>

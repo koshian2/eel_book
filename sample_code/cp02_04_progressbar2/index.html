@@ -1,0 +1,68 @@
+<html>
+    <head>
+        <script type="text/javascript" src="/eel.js"></script>
+    </head>
+    <body>
+        <input type="button" value="Click Me" onclick="buttonOnClicked()">
+        <div id="app">
+            <div id="current-time">
+                ボタンを押すとここに現在時刻が表示されます
+            </div>
+            <div id="daily-progtext">
+                今日は??%経過しました
+            </div>
+            <progress id="daily-progbar" max="100" value="0"></progress>
+            <div id="yearly-progtext">
+                今年は??%経過しました
+            </div>
+            <progress id="yearly-progbar" max="100" value="0"></progress>
+        </div>
+        <script>
+            function calcProgress(currentTime, resolution){
+                if(resolution==="daily"){
+                    // toDateString()で時刻部分を削ぎ落とせる
+                    var startTime = new Date(currentTime.toDateString());
+                    // オブジェクトのコピー
+                    var endTime = new Date(startTime);
+                    // 1日後の0時
+                    endTime.setDate(endTime.getDate()+1);
+                }
+                else if(resolution==="yearly"){
+                    // 年はそのまま、月は0インデックス、日は1インデックス
+                    var startTime = new Date(currentTime.getFullYear(), 0, 1);
+                    var endTime = new Date(currentTime.getFullYear()+1, 0, 1);
+                }
+                return (currentTime-startTime)/(endTime-startTime);
+            }
+
+            function setValueToNode(value, id){
+                let node = document.getElementById(id);
+                switch(node.tagName){
+                    case "DIV":
+                        node.innerText = value;
+                        break;
+                    case "PROGRESS":
+                        node.value = value;
+                        break;
+                }
+            }
+
+            function buttonOnClicked(){
+                // 現在時刻を取得
+                let currentTime = new Date();
+                // 日次、年次のプログレス
+                let dailyProgress = calcProgress(currentTime, "daily");
+                let yearlyProgress = calcProgress(currentTime, "yearly");
+                // 小数点の丸め
+                dailyProgress = Math.round(dailyProgress*1000)/10;
+                yearlyProgress = Math.round(yearlyProgress*1000)/10;
+                // 値のセット
+                setValueToNode(currentTime.toLocaleString("ja-JP"), "current-time");
+                setValueToNode("今日は"+dailyProgress+"%経過しました", "daily-progtext");
+                setValueToNode(dailyProgress, "daily-progbar");
+                setValueToNode("今年は"+yearlyProgress+"%経過しました", "yearly-progtext");
+                setValueToNode(yearlyProgress, "yearly-progbar");
+            }
+        </script>
+    </body>
+</html>

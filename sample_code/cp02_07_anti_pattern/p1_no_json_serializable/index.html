@@ -1,0 +1,32 @@
+<html>
+    <head>
+        <script type="text/javascript" src="/eel.js"></script>
+        <script src="https://unpkg.com/vue@3.1.4/dist/vue.global.js"></script>
+    </head>
+    <body>
+        <div id="app">
+            <input type="button" value="Click Me" v-on:click="buttonOnClicked"></button>
+            <div>{{currentTime}}</div>
+        </div>
+        <script>
+            const app = Vue.createApp({
+                data() {
+                    return {
+                        currentTime: "JSON化できないものを返すと何も表示されない"
+                    }
+                },
+                methods: {
+                    buttonOnClicked(){
+                        eel.get_current_time();
+                    },
+                    updateMessage(newTime){
+                        console.log(newTime);
+                        this.currentTime = newTime;
+                    }
+                }
+            }).mount("#app");
+
+            eel.expose(app.updateMessage, "updateMessage")
+        </script>
+    </body>
+</html>

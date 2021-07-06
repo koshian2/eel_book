@@ -1,0 +1,41 @@
+<html>
+    <head>
+        <script type="text/javascript" src="/eel.js"></script>
+        <script src="https://unpkg.com/vue@3.1.4/dist/vue.global.js"></script>
+    </head>
+    <body>
+        <div id="app">
+            <input type="button" value="Click Me" v-on:click="buttonOnClicked"></button>
+            <div>{{vm.normalMessage}}</div>
+            <ul>
+                <li v-for="item in vm.listMessage">
+                    {{item}}
+                </li>
+            </ul>
+        </div>
+        <script>
+            const app = Vue.createApp({
+                data() {
+                    return {
+                        vm: {
+                            normalMessage: "通常のメッセージが表示されます",
+                            listMessage: [
+                                "リスト0", "リスト1", "リスト2"
+                            ]
+                        }
+                    }
+                },
+                methods: {
+                    buttonOnClicked(){
+                        eel.get_data();
+                    },
+                    updateMessage(newViewObj){
+                        this.vm = newViewObj;
+                    }
+                }
+            }).mount("#app");
+
+            eel.expose(app.updateMessage, "updateMessage")
+        </script>
+    </body>
+</html>

@@ -1,0 +1,20 @@
+<html>
+    <head>
+        <script type="text/javascript" src="/eel.js"></script>
+    </head>
+    <body>
+        <input type="button" value="Click Me" onclick="buttonOnClicked()">
+        <div id="app-message">
+            ボタンを押すとここにメッセージが表示されます
+        </div>
+        <script>
+            function buttonOnClicked(){
+                // 現在時刻を取得するJavaScript
+                let currentTime = new Date();
+                let node = document.getElementById("app-message");
+                // 時刻をJSTに変換し文字列化 
+                node.innerText = currentTime.toLocaleString("ja-JP");
+            }
+        </script>
+    </body>
+</html>

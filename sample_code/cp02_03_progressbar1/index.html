@@ -1,0 +1,47 @@
+<html>
+    <head>
+        <script type="text/javascript" src="/eel.js"></script>
+    </head>
+    <body>
+        <input type="button" value="Click Me" onclick="buttonOnClicked()">
+        <div id="app">
+            <div id="current-time">
+                ボタンを押すとここに現在時刻が表示されます
+            </div>
+            <div id="daily-progtext">
+                今日は??%経過しました
+            </div>
+            <progress id="daily-progbar" max="100" value="0"></progress>
+            <div id="yearly-progtext">
+                今年は??%経過しました
+            </div>
+            <progress id="yearly-progbar" max="100" value="0"></progress>
+        </div>
+        <script>
+            function buttonOnClicked(){
+                eel.get_time_progress();
+            }
+
+            function setValueToNode(value, id){
+                let node = document.getElementById(id);
+                switch(node.tagName){
+                    case "DIV":
+                        node.innerText = value;
+                        break;
+                    case "PROGRESS":
+                        node.value = value;
+                        break;
+                }
+            }
+
+            eel.expose(updateMessage);
+            function updateMessage(viewObj){
+                setValueToNode(viewObj["date"], "current-time");
+                setValueToNode("今日は"+viewObj.daily_progress+"%経過しました", "daily-progtext");
+                setValueToNode(viewObj.daily_progress, "daily-progbar");
+                setValueToNode("今年は"+viewObj.yearly_progress+"%経過しました", "yearly-progtext");
+                setValueToNode(viewObj.yearly_progress, "yearly-progbar");
+            }
+        </script>
+    </body>
+</html>

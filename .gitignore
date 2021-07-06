@@ -1,0 +1,5 @@
+sample_code/release/*
+sample_code/dist/*
+sample_code/build/*
+sample_code/*.spec
+*/__pycache__/*

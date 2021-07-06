@@ -1,0 +1,26 @@
+<html>
+    <head>
+        <script type="text/javascript" src="/eel.js"></script>
+    </head>
+    <body>
+        <input type="button" value="Click Me" onclick="buttonOnClicked()">
+        <div id="app-message">
+            ボタンを押すとここにメッセージが表示されます
+        </div>
+        <script>
+            // ボタンが押されたときに呼ばれる関数。公開しない
+            function buttonOnClicked(){
+                // Pythonの「get_current_time」関数を呼び出す
+                eel.get_current_time();
+            }
+
+            // get_current_timeから呼ばれる関数。公開する
+            eel.expose(updateMessage);
+            function updateMessage(dateTimeStr){
+                // app-messageの更新
+                let node = document.getElementById("app-message");
+                node.innerText = dateTimeStr;
+            }
+        </script>
+    </body>
+</html>
